@@ -1,12 +1,15 @@
 <ul class="list-group">
-  <li (click)="setCurrentBrandNull()" [class]="getAllBrandClass()" routerLink="/cars">
+  <li
+    (click)="setCurrentBrandNull()"
+    [class]="getAllBrandClass()"
+    routerLink="/cars">
     Tüm Markalar
   </li>
-  <li (click)="setCurrentBrand(brand)"
-  *ngFor="let brand of brands"
-  [class]="getCurrentBrandClass(brand)"
-  routerLink="/cars/brand/{{brand.id}}">
-  {{ brand.name }}
+  <li
+    *ngFor="let brand of brands"
+    (click)="setCurrentBrand(brand)"
+    [class]="getCurrentBrandClass(brand)"
+    routerLink="/cars/brand/{{ brand.id }}">
+    {{ brand.name }}
   </li>
 </ul>
-
