@@ -8,7 +8,9 @@
     <th>Renk</th>
     <th>Günlük Ücret</th>
   </thead>
-  <tr *ngFor="let car of cars">
+  <tr *ngFor="let car of cars"
+  (click)="setCurrentCar(car)"
+  routerLink="/cars/{{car.id}}">
     <td>{{ car.carName }}</td>
     <td>{{ car.brandName }}</td>
     <td>{{ car.colorName }}</td>
