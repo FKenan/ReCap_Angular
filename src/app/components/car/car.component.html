@@ -16,18 +16,50 @@
   {{ filterText }} aradınız.
 </div>
 
-<div>
-  <select name="brands" id="brands">
-    <option *ngFor="let brand of brands" [value]="brand.id">
-      {{ brand.name }}
-    </option>
-  </select>
-  <select name="colors" id="colors">
-    <option *ngFor="let color of colors" [value]="color.id">
-      {{ color.name }}
-    </option>
-  </select>
-  <button (click)="filterByBrandAndColor(brand, color)">Filtrele</button>
+<div class="row mb-3">
+  <div class="col-md-4">
+    <select
+      [(ngModel)]="selectedBrand"
+      class="form-select"
+      aria-label="Default select example"
+    >
+      <option value="0">Marka Seçiniz</option>
+      <option
+        *ngFor="let brand of brands"
+        [value]="brand.id"
+        [selected]="getSelectedBrand(brand.id)"
+      >
+        {{ brand.name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="col-md-4">
+    <select
+      [(ngModel)]="selectedColor"
+      class="form-select"
+      aria-label="Default select example"
+    >
+      <option value="0">Renk Seçiniz</option>
+      <option
+        *ngFor="let color of colors"
+        [value]="color.id"
+        [selected]="getSelectedColor(color.id)"
+      >
+        {{ color.name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <button
+      routerLink="/cars/brand/{{ selectedBrand }}/color/{{ selectedColor }}"
+      class="btn btn-primary"
+      type="button"
+    >
+      Filtrele
+    </button>
+  </div>
 </div>
 <table *ngIf="dataLoaded == true" class="table table-bordered">
   <thead>
@@ -37,7 +69,7 @@
     <th>Günlük Ücret</th>
   </thead>
   <tr
-    *ngFor="let car of cars | filterPipe : filterText |filter"
+    *ngFor="let car of cars | filterPipe : filterText"
     (click)="setCurrentCar(car)"
     routerLink="/cars/{{ car.id }}"
   >

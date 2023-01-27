@@ -19,6 +19,8 @@ export class CarComponent implements OnInit {
   dataLoaded = false;
   currentCar: CarDetail;
   filterText = '';
+  selectedBrand: number = 0;
+  selectedColor: number = 0;
 
   constructor(
     private carService: CarService,
@@ -29,7 +31,9 @@ export class CarComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
-      if (params['colorid']) {
+      if (params['colorid'] && params['brandid']) {
+        this.getCarsByBrandAndColor(params['brandid'], params['colorid']);
+      } else if (params['colorid']) {
         this.getCarsByColor(params['colorid']);
       } else if (params['brandid']) {
         this.getCarsByBrand(params['brandid']);
@@ -75,7 +79,25 @@ export class CarComponent implements OnInit {
     });
   }
 
+  getCarsByBrandAndColor(brandId: number, colorId: number) {
+    this.carService
+      .getCarsByBrandAndColor(this.selectedBrand, this.selectedColor)
+      .subscribe((response) => {
+        this.cars = response.data;
+        this.dataLoaded = true;
+      });
+  }
+
   setCurrentCar(car: CarDetail) {
     this.currentCar = car;
+  }
+
+  getSelectedColor(colorId: number) {
+    if (this.selectedColor == colorId) return true;
+    else return false;
+  }
+  getSelectedBrand(brandId: number) {
+    if (this.selectedBrand == brandId) return true;
+    else return false;
   }
 }
