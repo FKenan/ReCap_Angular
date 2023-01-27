@@ -1,6 +1,34 @@
 <div *ngIf="dataLoaded == false" class="spinner-border" role="status">
   <span class="visually-hidden">Loading...</span>
 </div>
+
+<div class="mb-3">
+  <label for="filterText" class="form-label">Araba ara</label>
+  <input
+    type="text"
+    [(ngModel)]="filterText"
+    class="form-control"
+    id="filterText"
+    placeholder="ara"
+  />
+</div>
+<div *ngIf="filterText" class="alert alert-success">
+  {{ filterText }} aradınız.
+</div>
+
+<div>
+  <select name="brands" id="brands">
+    <option *ngFor="let brand of brands" [value]="brand.id">
+      {{ brand.name }}
+    </option>
+  </select>
+  <select name="colors" id="colors">
+    <option *ngFor="let color of colors" [value]="color.id">
+      {{ color.name }}
+    </option>
+  </select>
+  <button (click)="filterByBrandAndColor(brand, color)">Filtrele</button>
+</div>
 <table *ngIf="dataLoaded == true" class="table table-bordered">
   <thead>
     <th>Araba Adı</th>
@@ -8,12 +36,14 @@
     <th>Renk</th>
     <th>Günlük Ücret</th>
   </thead>
-  <tr *ngFor="let car of cars"
-  (click)="setCurrentCar(car)"
-  routerLink="/cars/{{car.id}}">
+  <tr
+    *ngFor="let car of cars | filterPipe : filterText |filter"
+    (click)="setCurrentCar(car)"
+    routerLink="/cars/{{ car.id }}"
+  >
     <td>{{ car.carName }}</td>
     <td>{{ car.brandName }}</td>
     <td>{{ car.colorName }}</td>
-    <td>{{ car.dailyPrice }}</td>
+    <td>{{ car.dailyPrice | currency }}</td>
   </tr>
 </table>
