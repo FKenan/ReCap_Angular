@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CarDetail } from 'src/app/models/carDetail';
 import { Image } from 'src/app/models/image';
 import { Rental } from 'src/app/models/rental';
@@ -15,12 +15,17 @@ import { RentalService } from 'src/app/services/rental.service';
 export class ImageComponent implements OnInit {
   images: Image[];
   selectedCar: CarDetail;
-  rentalDetail: Rental;
+  rentalDetail: Rental | undefined;
+  newRentDate: Date;
+  newReturnDate: Date;
+  date: Date;
+  time: Date;
   constructor(
     private imageService: ImageService,
     private carService: CarService,
     private rentalService: RentalService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -56,10 +61,32 @@ export class ImageComponent implements OnInit {
   }
 
   isRentable(): boolean {
-    let date = new Date(this.rentalDetail.returnDate);
-    console.log(date.valueOf()  +"- - -"+ Date.now())
-    console.log(date.valueOf() < Date.now())
-    return date.valueOf() < Date.now() ;
-    
+    if (this.rentalDetail) {
+      let date = new Date(this.rentalDetail.returnDate);
+      return date.valueOf() < Date.now();
+    }
+    return false;
+  }
+
+  checkDateAndTime() {
+    if (this.rentalDetail) {
+      let date = new Date(this.date.toString() + ' ' + this.time);
+      this.newRentDate = new Date();
+      this.newReturnDate = date;
+    }
+    if (this.newRentDate && this.newReturnDate) {
+      this.route.navigateByUrl('creditpage');
+    }
+  }
+
+  getDate() {
+    let date = new Date();
+    let month = (date.getMonth() + 1).toString();
+    let day = date.getDate().toString();
+    let year = date.getFullYear().toString();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return `${year}-${month}-${day}`;
   }
 }

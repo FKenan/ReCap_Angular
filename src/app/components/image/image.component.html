@@ -1,34 +1,48 @@
-<div class="container text-center">
+<div class="container">
   <div class="row">
-    <div class="col-md-auto" *ngFor="let image of images">
-      <img [src]="getImageUrl(image)" alt="123" />
+    <div class="col-auto mb-5" *ngIf="selectedCar && rentalDetail">
+      <div class="card" *ngFor="let image of images" style="width: 18rem">
+        <img [src]="getImageUrl(image)" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-info">
+              Araba Adı: {{ selectedCar.carName }}
+            </li>
+            <li class="list-group-item list-group-item-info">
+              Renk : {{ selectedCar.colorName }}
+            </li>
+            <li class="list-group-item list-group-item-info">
+              Marka : {{ selectedCar.brandName }}
+            </li>
+            <li class="list-group-item list-group-item-info">
+              Günlük Ücret : {{ selectedCar.dailyPrice }}
+            </li>
+            <li class="list-group-item list-group-item-info">
+              Açıklama : {{ selectedCar.description }}
+            </li>
+            <li
+              *ngIf="!isRentable() && rentalDetail.returnDate "
+              class="list-group-item list-group-item-danger"
+            >
+              {{ rentalDetail.returnDate | date : "YYYY-MM-dd hh:mm" }} Tarihine Kadar
+              Kiralamaya Uygun Değildir.
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="col" *ngIf="selectedCar && rentalDetail">
-      <ul class="list-group">
-        <li class="list-group-item list-group-item-info">
-          Araba Adı: {{ selectedCar.carName }}
-        </li>
-        <li class="list-group-item list-group-item-info">
-          Renk : {{ selectedCar.colorName }}
-        </li>
-        <li class="list-group-item list-group-item-info">
-          Marka : {{ selectedCar.brandName }}
-        </li>
-        <li class="list-group-item list-group-item-info">
-          Günlük Ücret : {{ selectedCar.dailyPrice }}
-        </li>
-        <li class="list-group-item list-group-item-info">
-          Açıklama : {{ selectedCar.description }}
-        </li>
-        <li
-          *ngIf="!isRentable()"
-          class="list-group-item list-group-item-danger"
-        >
-          {{ rentalDetail.returnDate | date : "medium" }} Tarihine Kadar
-          Kiralamaya Uygun Değildir.
-        </li>
-        <button *ngIf="isRentable()" class="btn btn-primary" type="button">Kirala</button>
-      </ul>
+    <div class="col-7" *ngIf="isRentable()">
+      <div class="row-auto mt-5">
+        <label for="date">Bitiş Tarihi Seçiniz: </label>
+        <input id="date" type="date" [min]="getDate()" [(ngModel)]="date" />
+      </div>
+      <div class="row-auto mt-3">
+        <label for="time">Bitiş Tarihi Seçiniz: </label>
+        <input id="date" type="time" [(ngModel)]="time"/>
+      </div>
+      <div class="row-auto mt-3 ">
+        <button class="btn btn-primary" type="button" (click)="checkDateAndTime()" >Kirala</button>
+      </div>
     </div>
   </div>
 </div>
