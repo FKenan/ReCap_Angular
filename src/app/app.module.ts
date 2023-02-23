@@ -4,29 +4,27 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NaviComponent } from './components/navi/navi.component';
-import { CarComponent } from './components/car/car.component';
-import { BrandComponent } from './components/brand/brand.component';
-import { CustomerComponent } from './components/customer/customer.component';
-import { RentalComponent } from './components/rental/rental.component';
-import { ColorComponent } from './components/color/color.component';
-import { ImageComponent } from './components/image/image.component';
-import { FilterPipePipe } from './pipes/filter-pipe.pipe';
+import { CreditLayoutComponent } from './credit/credit-layout/credit-layout.component';
+import { MainModule } from './main/main.module';
+import { CreditModule } from './credit/credit.module';
+import { MainLayoutComponent } from './main/components/main-layout/main-layout.component';
+import { NaviComponent } from './main/components/navi/navi.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NaviComponent,
-    CarComponent,
-    CarComponent,
-    BrandComponent,
-    CustomerComponent,
-    RentalComponent,
-    ColorComponent,
-    ImageComponent,
-    FilterPipePipe,
+    MainLayoutComponent,
+    CreditLayoutComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    MainModule,
+    CreditModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
