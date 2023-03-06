@@ -1,0 +1,65 @@
+<div class="row mt-4">
+  <div class="col-md-6 offset-3">
+    <form (ngSubmit)="rent()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Ad Soyad</label>
+        <input
+        [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="cardModel.nameOnTheCard"
+          type="text"
+          class="form-control"
+          id="name"
+          placeholder="Kart Üzerinde Bulunan İsim ve Soyisim"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="cardNumber" class="form-label">Kart No</label>
+        <input #cardNumber
+        [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="cardModel.cardNumber"
+          type="text"
+          class="form-control"
+          id="cardNumber"
+          placeholder="Kart Numarası"
+          (change)="cardNumberChange(cardNumber.value)"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="cvv" class="form-label">Cvv</label>
+        <input
+        [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="cardModel.cvv"
+          type="text"
+          class="form-control"
+          id="cvv"
+          placeholder="Kartın arkasında bulunan 3 haneli rakam"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="month" class="form-label">Ay</label>
+        <input
+        [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="cardModel.month"
+          type="text"
+          class="form-control"
+          id="month"
+          placeholder="Kartın oluşturulma ayı"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="year" class="form-label">Yıl</label>
+        <input
+        [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="cardModel.year"
+          type="text"
+          class="form-control"
+          id="year"
+          placeholder="Kartın oluşturulma yılı"
+        />
+      </div>
+      <input type="submit" class="btn btn-outline-primary">
+    </form>
+  </div>
+</div>
+
+

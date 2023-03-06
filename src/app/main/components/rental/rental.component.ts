@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Rental } from 'src/app/models/rental';
+import { rentalDto } from 'src/app/models/rentalDto';
 import { RentalService } from 'src/app/main/services/rental.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { RentalService } from 'src/app/main/services/rental.service';
   styleUrls: ['./rental.component.css'],
 })
 export class RentalComponent implements OnInit {
-  rentals: Rental[] = [];
+  rentals: rentalDto[] = [];
   dataLoaded = false;
   constructor(private rentalService: RentalService) {}
 

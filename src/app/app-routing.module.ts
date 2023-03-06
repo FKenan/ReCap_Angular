@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { CreditLayoutComponent } from './credit/credit-layout/credit-layout.component';
-import { CarComponent } from './main/components/car/car.component';
-import { ImageComponent } from './main/components/image/image.component';
-import { MainLayoutComponent } from './main/components/main-layout/main-layout.component';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { CreditLayoutComponent } from "./creditPage/components/credit-layout/credit-layout.component";
+import { CreditComponent } from "./creditPage/components/credit/credit.component";
+import { CarComponent } from "./main/components/car/car.component";
+import { ImageComponent } from "./main/components/image/image.component";
+import { MainLayoutComponent } from "./main/components/main-layout/main-layout.component";
 
 const routes: Routes = [
   {
@@ -18,7 +19,11 @@ const routes: Routes = [
       { path: 'cars/brand/:brandid/color/:colorid', component: CarComponent },
     ],
   },
-  { path: 'credit', component: CreditLayoutComponent },
+  {
+    path: 'credit',
+    component: CreditLayoutComponent,
+    children: [{ path: '', component: CreditComponent }],
+  },
 ];
 
 @NgModule({

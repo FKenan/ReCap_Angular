@@ -9,6 +9,14 @@ import { ListResponseModel } from '../../models/listResponseModel';
 })
 export class ImageService {
   apiUrl = 'https://localhost:44350/api/carimages/';
+
+  rentalId: number=0;
+  carId: number =0;
+  customerId: number = 1;
+
+  newRentDate: Date;
+  newReturnDate: Date;
+
   constructor(private httpClient: HttpClient) {}
 
   getImagesByCarId(carId: number): Observable<ListResponseModel<Image>> {
